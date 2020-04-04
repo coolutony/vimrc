@@ -1,13 +1,4 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Maintainer: 
-"       Amir Salihefendic — @amix3k
-"
-" Awesome_version:
-"       Get this config, nice color schemes and lots of plugins!
-"
-"       Install the awesome version from:
-"
-"           https://github.com/amix/vimrc
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Sections:
 "    -> General
@@ -26,6 +17,45 @@
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" => Added By Sunwook
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nu
+map dblank :g/^$/d
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" => For competitive programming in C++ and unknown chaewon's configuration
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+au BufReadPost *
+\ if line ("'\'") > 0 && line ("'\'") <= line("$") |
+\ exe "norm g'\"" | endif
+
+set nocompatible
+set backspace=indent,eol,start
+set autoread
+map run :wa<CR>:!clear && g++ -O2 -std=c++14 % -o make && ./make < input.txt > output.txt<CR>
+map pyrun :wa<CR>:!clear && python % < input.txt > output.txt<CR>
+nmap <C-F5> :wa<CR>:!clear && g++ -O2 -std=c++14 % -o make && ./make < input.txt > output.txt<CR>
+imap <C-F5> <ESC><C-F5>
+map submit :w<CR> :!clear && python3 onlysubmit.py % <CR>
+map base :!cp base.cpp % <CR>
+map setting :bo 50vs output.txt <CR>:split input.txt <CR> :w<CR>
+
+"<C-w>60< :w<CR> <C-w>h
+map save :wqa<CR>
+
+if &term =~ '^screen'
+" tmux will send xterm-style keys when its xterm-keys option is on
+execute "set <xUp>=\e[1;*A"
+execute "set <xDown>=\e[1;*B"
+execute "set <xRight>=\e[1;*C"
+execute "set <xLeft>=\e[1;*D"
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -71,9 +101,9 @@ set wildmenu
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
 if has("win16") || has("win32")
-    set wildignore+=.git\*,.hg\*,.svn\*
+set wildignore+=.git\*,.hg\*,.svn\*
 else
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 endif
 
 "Always show current position
@@ -120,7 +150,7 @@ set tm=500
 
 " Properly disable sound on errors on MacVim
 if has("gui_macvim")
-    autocmd GUIEnter * set vb t_vb=
+autocmd GUIEnter * set vb t_vb=
 endif
 
 
@@ -136,11 +166,11 @@ syntax enable
 
 " Enable 256 colors palette in Gnome Terminal
 if $COLORTERM == 'gnome-terminal'
-    set t_Co=256
+set t_Co=256
 endif
 
 try
-    colorscheme desert
+colorscheme desert
 catch
 endtry
 
@@ -148,10 +178,10 @@ set background=dark
 
 " Set extra options when running in GUI mode
 if has("gui_running")
-    set guioptions-=T
-    set guioptions-=e
-    set t_Co=256
-    set guitablabel=%M\ %t
+set guioptions-=T
+set guioptions-=e
+set t_Co=256
+set guitablabel=%M\ %t
 endif
 
 " Set utf8 as standard encoding and en_US as the standard language
@@ -212,6 +242,10 @@ map <C-space> ?
 map <silent> <leader><cr> :noh<cr>
 
 " Smart way to move between windows
+map <C-Down> <C-W>j
+map <C-Up> <C-W>k
+map <C-Left> <C-W>h
+map <C-Right> <C-W>l
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
@@ -252,9 +286,6 @@ try
   set stal=2
 catch
 endtry
-
-" Return to last edit position when opening files (You want this!)
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 
 """"""""""""""""""""""""""""""
